@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  test:
+test:
     name: Run Tests
     runs-on: ubuntu-latest  # Specify the operating system for the job
 
