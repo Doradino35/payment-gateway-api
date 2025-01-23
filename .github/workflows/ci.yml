@@ -1,0 +1,60 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      # Step 4: Run tests
+      - name: Run tests
+        run: |
+          source venv/bin/activate
+          pytest
+
+  deploy:
+    name: Deploy to Netlify
+    needs: test  
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      # Step 2: Install Netlify CLI
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      # Step 3: Deploy to Netlify
+      - name: Deploy to Netlify
+        run: |
+          netlify deploy --dir=static --prod --auth=$NETLIFY_AUTH_TOKEN
+
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
