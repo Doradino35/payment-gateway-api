@@ -53,7 +53,8 @@ jobs:
       # Step 3: Deploy to Netlify
       - name: Deploy to Netlify
         run: |
-          netlify deploy --dir=static --prod --auth=$NETLIFY_AUTH_TOKEN --site=<8e4c388a-8214-43a5-ae23-f97c40f5b624>
+          netlify deploy --dir=static --prod --auth=$NETLIFY_AUTH_TOKEN --site=8e4c388a-8214-43a5-ae23-f97c40f5b624
+
 
 
         env:
