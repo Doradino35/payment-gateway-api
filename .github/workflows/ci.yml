@@ -13,6 +13,8 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest  
 
+    env:
+      PAYSTACK_SECRET_KEY: ${{ secrets.PAYSTACK_SECRET_KEY }} 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -31,8 +33,8 @@ jobs:
 
       - name: Run tests
         run: |
-          source venv/bin/activate   
-          pytest                     
+          source venv/bin/activate    
+          pytest                      
 
   deploy:
     name: Deploy to Netlify
