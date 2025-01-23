@@ -1,7 +1,6 @@
 .env
 db.sqlite3 
-media 
-static 
+media
 *.pyc 
 *.egg-info 
 /biglyds/ 
